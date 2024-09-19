@@ -46,6 +46,7 @@ def fetch_from_server(filename, origin):
     
 def save_in_cache(filename, content):
     print('Saving a copy of {} in the cache'.format(filename))
+    ensure_cache_directory()
     cached_file = open('cache' + filename, 'w')
     cached_file.write(content)
     cached_file.close()
@@ -63,6 +64,11 @@ def clear_cache():
             print('Failed to delete %s. Reason: %s' % (file_path, e))
 
     print('Cached cleared')
+
+def ensure_cache_directory():
+    if not os.path.exists('cache'):
+        os.makedirs('cache')
+        print('Created cache directory.')
 
 def main():
     # Get port and url command line argument
